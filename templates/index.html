@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="site-wrapper-inner">
+<!--/videos/hero.mp4-->
+
+	<div class="cover-container">
+		<div class="masthead clearfix">
+			<h1>Startled Markets <small>Visualize the VIX</small></h1>
+		</div>
+		<div class="inner cover">
+			<div class="jumbotron" style="padding: 15px;">
+				<h3>Put/Call Ratio: <span class="label label-default">{{ board["ratio"] }}</span></h3>
+				<br />
+				<div class="progress">
+					<div class="progress-bar progress-bar-danger progress-bar-striped active" style="width: {{ board["put_centage"] }}%">
+						<h6>{{ board["puts"] }} puts</h6>
+					</div>
+					<div class="progress-bar progress-bar-success progress-bar-striped active" style="width: {{ board["call_centage"] }}%">
+						<h6>{{ board["calls"] }} calls</h6>
+					</div>
+				</div>
+				
+				<span class="label label-{{ board["status"][1] }}">Markets are currently {{ board["status"][0] }}</span>
+				
+				<p><small>Data from CBOE</small></p>
+			</div>
+		</div>
+		<div class="mastfoot">
+			<div class="inner">
+				<p>Designed by <a href="http://idkcode.com">Chris Thurber</a> in New York</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
