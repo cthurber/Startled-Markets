@@ -1,0 +1,28 @@
+.chart {
+
+  margin: 10px;
+  padding-top: 10px; 
+}
+
+.chart .right {
+font-family: Helvetica;
+font-size: 18px;
+color: black;
+  stroke: white;
+  fill: indianred; 
+}
+.chart .left {
+  stroke: white;
+  fill: steelblue; 
+}
+.chart rect:hover {
+  fill: #64707d; 
+}
+
+.chart text {
+  fill: white; 
+}
+
+.chart text.name {
+  fill: black; 
+}
