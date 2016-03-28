@@ -32,9 +32,9 @@ def getTotalData():
             time = str(int(hour))+":"+minute
 
 		# Determine market status
-        status = ["Open","success"]
+        status = ["open","success"]
         if(system_day > 4 or int(system_time[0]) < 9 or int(system_time[0]) >= 16):
-        	status = ["Closed","danger"]
+        	status = ["closed","danger"]
 
 		# Add all non-null data to table
         if(calls != '\xa0' and puts != '\xa0' and ratio != '\xa0'):
