@@ -6,7 +6,7 @@
 
 	<div class="cover-container">
 		<div class="masthead clearfix">
-			<h1>Startled Markets <small>Visualize the VIX</small></h1>
+			<h1>Startled Markets <small>Visual Options Data</small></h1>
 		</div>
 		<div class="inner cover">
 			<div class="jumbotron" style="padding: 15px;">
@@ -22,8 +22,8 @@
 				</div>
 				
 				<span class="label label-{{ board["status"][1] }}">Markets are currently {{ board["status"][0] }}</span>
-				
-				<p><small>Data from CBOE</small></p>
+				<hr />
+				<p>Based on CBOE Total Intra-Day Volume Data<br /><small>Data current as of {{ board["time"] }} CST</small></p>
 			</div>
 		</div>
 		<div class="mastfoot">
