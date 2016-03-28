@@ -8,6 +8,10 @@ a:focus,
 a:hover {
   color: grey;
 }
+a:hover {
+	color: white;
+	background: #444444;
+}
 
 /* Custom default button */
 .btn-default,
