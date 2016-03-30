@@ -12,7 +12,7 @@ cron = Scheduler(daemon=True)
 # Explicitly kick off the background thread
 cron.start()
 
-@cron.interval_schedule(minutes=1)
+@cron.interval_schedule(minutes=15)
 def refresh_data():
     return getTotalData() # Function asks for latest CBOE data
 
