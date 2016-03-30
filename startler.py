@@ -14,6 +14,7 @@ cron.start()
 
 @cron.interval_schedule(minutes=15)
 def refresh_data():
+	# make array with CBOE and Trading data
     return getTotalData() # Function asks for latest CBOE data
 
 @app.route('/')
