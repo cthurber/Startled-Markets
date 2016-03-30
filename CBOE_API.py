@@ -6,12 +6,13 @@ from bs4 import BeautifulSoup
 def getTotalData():
     system_time = str(datetime.now().time()).split(":")
     system_day = int(datetime.today().weekday())
-	
-    CBOE_options_page = BeautifulSoup(request.urlopen("http://www.cboe.com/data/intradayvol.aspx"), "html.parser")
-    table = CBOE_options_page.find("table")
 
-    table_data = table.find_all('tr')
-    table = [] #table = {}
+    CBOE_options_page = BeautifulSoup(request.urlopen("http://www.cboe.com/data/intradayvol.aspx"), "html.parser")
+    table = CBOE_options_page.find_all("table")
+    table = table[5] # SP 500 table
+
+    table_data = table.findAll('tr')
+    table = [] # table = {}
     for row in table_data[1:]:
         row = str(row.text).split('\n')
 
@@ -23,8 +24,7 @@ def getTotalData():
         calls = row[2]
         puts = row[3]
         total = row[4]
-        ratio = row[5]
-        
+
         # Convert to military time
         if("PM" in time_of_day and int(hour) != 12):
             time = str(int(hour[0])+12)+":"+minute
@@ -37,10 +37,11 @@ def getTotalData():
         	status = ["closed","danger"]
 
 		# Add all non-null data to table
-        if(calls != '\xa0' and puts != '\xa0' and ratio != '\xa0'):
+        if(calls != '\xa0' and puts != '\xa0'):
+            ratio = float(int(puts) / int(calls))
             calls_centage = float(int(calls) / int(total))*100
             puts_centage = float(int(puts) / int(total))*100
-            
-            table.append({"time":time,"calls":int(calls), "puts":int(puts),"call_centage":float(calls_centage),"put_centage":float(puts_centage),"ratio":float(ratio),"status":status})
+
+            table.append({"time":time,"calls":int(calls), "puts":int(puts),"total":int(total),"call_centage":float(calls_centage),"put_centage":float(puts_centage),"ratio":float(ratio),"status":status})
 
     return table[-1] # Get latest data
