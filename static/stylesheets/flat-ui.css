@@ -2380,7 +2380,7 @@ fieldset[disabled] .input-group-btn .btn-default.active {
 .progress {
   background: #ebedef;
   border-radius: 32px;
-  height: 60px;
+  height: 15px;
   box-shadow: none;
 }
 .progress-bar {
