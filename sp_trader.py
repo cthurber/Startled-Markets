@@ -33,7 +33,8 @@ def trade():
     # Step 2
     # Package {CBOE_data : dat, Portfolio : portfolio, Trades : [trades]} to be returned for webpage
 
-    MarketWatchDriver.trade("SPXS",decision["position"],decision["allocation"])
+    if(cboe_data["status"][0] == "open"):
+        MarketWatchDriver.trade("SPXS",decision["position"],decision["allocation"])
 
     return {
         "CBOE_data" : cboe_data,
