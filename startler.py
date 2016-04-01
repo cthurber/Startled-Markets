@@ -4,7 +4,7 @@ import atexit, time
 from flask import Flask
 from flask import render_template
 from apscheduler.scheduler import Scheduler
-from CBOE_API import getTotalData
+from CBOE_API import getLatest
 
 app = Flask(__name__)
 
@@ -15,7 +15,7 @@ cron.start()
 @cron.interval_schedule(minutes=15)
 def refresh_data():
 	# make array with CBOE and Trading data
-    return getTotalData() # Function asks for latest CBOE data
+    return getLatest() # Function asks for latest CBOE data
 
 @app.route('/')
 def home(board=refresh_data()):
