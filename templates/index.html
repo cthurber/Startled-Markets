@@ -8,27 +8,27 @@
 		</div>
 		<div class="inner cover">
 			<div class="jumbotron" style="padding: 15px;">
-				
+
 				<h4>S&amp;P 500 Options Trading Volume</h4>
 				<hr />
-				<h6>Put/Call Ratio: <span class="label label-default">{{ board["ratio"] | round(2, 'floor') }}</span></h6>
+				<h6>Put/Call Ratio: <span class="label label-default">{{ board["CBOE_data"]["ratio"] | round(2, 'floor') }}</span></h6>
 				<div class="progress" style="height: 53px;">
-					<div class="progress-bar progress-bar-danger progress-bar-striped active" style="width: {{ board["put_centage"] }}%;">
-						<h6>{{ "{:,}".format(board["puts"]) }} puts</h6>
+					<div class="progress-bar progress-bar-danger progress-bar-striped active" style="width: {{ board["CBOE_data"]["put_centage"] }}%;">
+						<h6>{{ "{:,}".format(board["CBOE_data"]["puts"]) }} puts</h6>
 					</div>
-					<div class="progress-bar progress-bar-success progress-bar-striped active" style="width: {{ board["call_centage"] }}%;">
-						<h6>{{ "{:,}".format(board["calls"]) }} calls</h6>
+					<div class="progress-bar progress-bar-success progress-bar-striped active" style="width: {{ board["CBOE_data"]["call_centage"] }}%;">
+						<h6>{{ "{:,}".format(board["CBOE_data"]["calls"]) }} calls</h6>
 					</div>
 				</div>
-				
+
 				<span>Latest trading activity by StratBox</span>
 				<div class="well well-sm" style="height: 55px;">
-					<p>Purchased 3,243 shares of <span class="label label-default">SPXS</span> at 15.37</p>
+					<p>Purchased {{ "{:,}".format(board["decision"]["allocation"]) }} shares of <span class="label label-default">SPXS</span> {{ boadecisionrd["decision"]["position"] }} at {{ board["decision"]["price"] }}</p>
 				</div>
-				
-				<span class="label label-{{ board["status"][1] }}">Markets are currently {{ board["status"][0] }}</span>
+
+				<span class="label label-{{ board["CBOE_data"]["status"][1] }}">Markets are currently {{ board["CBOE_data"]["status"][0] }}</span>
 				<hr />
-				<p>Based on <a href="http://www.cboe.com/data/intradayvol.aspx">CBOE Total Intra-Day Volume Data</a><br /><small>Data current as of {{ board["time"] }} CST</small></p>
+				<p>Based on <a href="http://www.cboe.com/data/intradayvol.aspx">CBOE Total Intra-Day Volume Data</a><br /><small>Data current as of {{ board["CBOE_data"]["time"] }} CST</small></p>
 			</div>
 		</div>
 		<div class="mastfoot">
