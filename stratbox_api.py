@@ -1,17 +1,13 @@
 from flask import Flask
 from splinter import Browser
-from selenium import webdriver
 from bs4 import BeautifulSoup
 import time
-# from splinter.driver.zopetestbrowser import ZopeTestBrowser
 
-# _DRIVERS['zope.testbrowser'] = ZopeTestBrowser
-driver = webdriver.PhantomJS(executable_path="/Applications/phantomjs.app/Contents/MacOS/phantomjs")
 gameRoot = "http://www.marketwatch.com/game/2016-drew-wall-street-semester-game"
 Name = "Chris Thurber"
 class MarketWatch(object):
     def __init__(self):
-        self.browser = Browser(driver)
+        self.browser = Browser('phantomjs')
 
     def read_loginfo(self):
         with open('.loginfo') as loginfo:
@@ -25,7 +21,6 @@ class MarketWatch(object):
         # Login to MarketWatch
         login_url = "https://id.marketwatch.com/access/50eb2d087826a77e5d000001/latest/login_standalone.html"
         self.browser.visit(login_url)
-        print(self.browser.html)
         self.browser.fill('username', self.read_loginfo()[0])
         self.browser.fill('password', self.read_loginfo()[1])
         login_button = self.browser.find_by_id('submitButton')
@@ -44,27 +39,26 @@ class MarketWatch(object):
             self.login()
             self.get_balance()
 
-    def get_ticker(self,symbol):
-        symbol = symbol.upper()
-        return 1
-
     def get_price(self,symbol):
+        self.browser.visit("http://www.marketwatch.com/investing/stock/"+str(symbol))
         symbol = symbol.upper()
+        results = BeautifulSoup(self.browser.html, "html.parser")
         try:
-            # Get potential short positions
-            self.browser.visit(gameRoot+"/trade")
-            symbol_lookup = self.browser.find_by_value("Enter company name or symbol")
-            symbol_lookup.fill(symbol)
-            self.browser.find_by_tag("button")[2].click()
-            time.sleep(1)
-            results = BeautifulSoup(self.browser.html, "html.parser")
-            symbol = results.find("div", {'class' : 'chips'})
-            if len(symbol) >= 2:
-                price = str(results.find("p", {'class' : 'last'}).text).rstrip('\n').lstrip("\n$").replace(',','')
-                return price
+            price = float(results.find("p", {'class' : 'data bgLast'}).text)
         except:
-            self.login()
-            self.get_price(symbol)
+            price = "N/A"
+        return price
+
+
+    def get_marketcap(self,symbol):
+        self.browser.visit("http://www.marketwatch.com/investing/stock/"+str(symbol))
+        symbol = symbol.upper()
+        results = BeautifulSoup(self.browser.html, "html.parser")
+        try:
+            marketcap = float(str(results.find("div", {'class' : 'section heavytop'}).find("p", {'class' : 'data lastcolumn'}).text).lstrip("$").rstrip("B"))
+        except:
+            marketcap = "N/A"
+        return marketcap
 
     def trade(self,symbol,position,shares,order_type=["market"]):
         symbol = symbol.upper()
@@ -132,7 +126,3 @@ class MarketWatch(object):
         # except:
             # self.login()
             # self.trade(symbol,position,shares,order_type)
-#
-# MW_Driver = MarketWatch()
-# print(MW_Driver.get_balance())
-# MW_Driver.trade("spxs","long",1,["stop","18.80"])
