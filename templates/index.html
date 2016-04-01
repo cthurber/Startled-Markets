@@ -23,7 +23,7 @@
 
 				<span>Latest trading activity by StratBox</span>
 				<div class="well well-sm" style="height: 55px;">
-					<p>Purchased {{ "{:,}".format(board["decision"]["allocation"]) }} shares of <span class="label label-default">SPXS</span> {{ boadecisionrd["decision"]["position"] }} at {{ board["decision"]["price"] }}</p>
+					<p>Purchased {{ "{:,}".format(board["decision"]["allocation"]) }} shares of <span class="label label-default">SPXS</span> {{ board["decision"]["position"] }} at {{ board["decision"]["price"] }}</p>
 				</div>
 
 				<span class="label label-{{ board["CBOE_data"]["status"][1] }}">Markets are currently {{ board["CBOE_data"]["status"][0] }}</span>
